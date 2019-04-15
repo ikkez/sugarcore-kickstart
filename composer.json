@@ -1,0 +1,21 @@
+{
+    "name": "ikkez/sugarcore",
+    "type": "project",
+    "authors": [
+        {
+            "name": "ikkez",
+            "email": "ikkez0n3@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "ikkez/sugarcore-base": "dev-master",
+        "bcosca/fatfree-core": "dev-master#36916119c76f635a6b84df29fda98afa0ee28700 as 3.6.5"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "ssh://sugarcore:sugar@ikkez.de/home/sugarcore/base.git"
+        }
+    ]
+}

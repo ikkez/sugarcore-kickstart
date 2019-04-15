@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ *  Sugarcore - An Application Framework for F3
+ *
+ *  The contents of this file are subject to the terms of the GNU General
+ *  Public License Version 3.0. You may not use this file except in
+ *  compliance with the license. Any of the license terms and conditions
+ *  can be waived if you get permission from the copyright holder.
+ *
+ *  Copyright (c) 2019
+ *  https://github.com/ikkez/
+ *
+ *  @author   Christian Knuth <mail@ikkez.de>
+ *
+ */
+
+require __DIR__.'/vendor/ikkez/sugarcore/cli.php';
