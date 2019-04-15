@@ -14,12 +14,10 @@
 *
 */
 
-$base_ready=file_exists($base_inc=__DIR__.'/vendor/autoload.php');
-$ext_ready=file_exists($ext_inc=__DIR__.'/lib/src/autoload.php');
+$base_ready=file_exists(__DIR__.'/vendor/autoload.php');
+$ext_ready=file_exists(__DIR__.'/lib/src/autoload.php');
 
 if ($base_ready && $ext_ready) {
-	require $ext_inc;
-	require $base_inc;
 	require __DIR__.'/vendor/ikkez/sugarcore/bootstrap.php';
 
 } else {
@@ -36,11 +34,6 @@ if ($base_ready && $ext_ready) {
 			'composer' => [
 				"config" => [
 					"vendor-dir"=> "src"
-				],
-				"require"=> [
-	//				"bcosca/fatfree-core" => "dev-master#36916119c76f635a6b84df29fda98afa0ee28700 as 3.6.5",
-	//				"ikkez/f3-flash" => "^1.0",
-					"ikkez/f3-cortex" => "^1.0"
 				]
 			]
 		];
@@ -64,6 +57,7 @@ if ($base_ready && $ext_ready) {
 				exit();
 			}
 		}
+		ob_start();
 		require_once "phar://{$conf['bin']}{$conf['pkg']}/src/bootstrap.php";
 
 		if (!empty($dir)) {
@@ -76,7 +70,8 @@ if ($base_ready && $ext_ready) {
 		putenv("COMPOSER_HOME={$conf['dir']}");
 		putenv("OSTYPE=OS400"); //force to use php://output instead of php://stdout
 
-//		header('Content-Type: text');
+		if (empty($dir) && !preg_match('/^win/i',PHP_OS))
+			putenv("COMPOSER_CACHE_DIR=".__DIR__.'lib/cache/');
 
 		$app = new \Composer\Console\Application();
 		$factory = new \Composer\Factory();
@@ -88,25 +83,35 @@ if ($base_ready && $ext_ready) {
 		$input->setInteractive(false);
 
 		$cmdret = $app->doRun($input,$output);
-
-		echo "============="."\n";
-		echo "> done";
-		die();
+		return ob_get_clean();
 	}
-	header('Content-Type: text');
 
+	header('Content-Type: text/html');
+	$body=<<<HTML
+	<html><title>Sugarcore Install</title><head><style>*{font-family: Verdana;} code{ background: #e3e3e3; padding: 5px;} pre{padding: 15px; background: #e3e3e3; } pre code{padding: 0;}</style></head><body>%s</body></html>
+HTML;
+
+	$msg='';
 	if (!$base_ready) {
-		echo "Installing base requirements".
-		__install();
+		$msg.='<h1>Installation</h1>';
+		if (isset($_GET['proceed']) && $_GET['proceed']=='base') {
+			$msg.='Running composer:';
+			$result = __install();
+			$msg.='<pre><code>'.$result.'</code></pre>';
+			$msg.='<strong>Done.</strong> <a href="?">continue.</a>';
+		} else {
+			$msg.='Base repositories required. To install run <code>composer install</code> on terminal or <a href="?proceed=base">run Installer</a>';
+		}
+	} elseif (!$ext_ready) {
+		$msg.='<h1>Installation</h1>';
+		if (isset($_GET['proceed']) && $_GET['proceed']=='ext') {
+			$msg.='Running composer:';
+			$result = __install('lib/');
+			$msg.='<pre><code>'.$result.'</code></pre>';
+			$msg.='<strong>Done.</strong> <a href="?">continue.</a>';
+		} else {
+			$msg.='Extension setup required. <a href="?proceed=ext">Proceed</a>';
+		}
 	}
-	if (!$ext_ready) {
-		echo "Installing extension base".
-		__install('lib/');
-	}
+	echo sprintf($body,$msg);
 }
-
-//new Pagination(5);
-/** @var \Base $f3 */
-//$f3 = \Base::instance();
-//echo $f3->VERSION;
-//echo $f3->PACKAGE;

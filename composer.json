@@ -1,5 +1,5 @@
 {
-    "name": "ikkez/sugarcore",
+    "name": "ikkez/sugarcore-init",
     "type": "project",
     "authors": [
         {
@@ -9,7 +9,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "ikkez/sugarcore-base": "dev-master",
+        "ikkez/sugarcore": "dev-master",
         "bcosca/fatfree-core": "dev-master#36916119c76f635a6b84df29fda98afa0ee28700 as 3.6.5"
     },
     "repositories": [
