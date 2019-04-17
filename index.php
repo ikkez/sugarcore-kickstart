@@ -51,6 +51,10 @@ if ($base_ready && $ext_ready) {
 				exit();
 			}
 		}
+		if (empty($dir) && !is_writable($conf['dir'])) {
+			trigger_error(sprintf('Please make sure %s is writeable.',$conf['dir']),E_USER_ERROR);
+			exit();
+		}
 
 		if (!file_exists($conf['bin'].$conf['pkg']) || filemtime($conf['bin'].$conf['pkg']) < strtotime('-3 months')) {
 			mkdir($conf['bin'],0777,true);
