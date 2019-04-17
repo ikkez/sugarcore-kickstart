@@ -71,7 +71,7 @@ if ($base_ready && $ext_ready) {
 		putenv("OSTYPE=OS400"); //force to use php://output instead of php://stdout
 
 		if (empty($dir) && !preg_match('/^win/i',PHP_OS))
-			putenv("COMPOSER_CACHE_DIR=".__DIR__.'lib/cache/');
+			putenv("COMPOSER_CACHE_DIR=".__DIR__.'/lib/cache/');
 
 		$app = new \Composer\Console\Application();
 		$factory = new \Composer\Factory();
