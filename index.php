@@ -25,6 +25,9 @@ if ($base_ready && $ext_ready) {
 	function __install($dir='') {
 		error_reporting(E_ALL & ~E_NOTICE & ~E_USER_NOTICE & ~E_DEPRECATED & ~E_USER_DEPRECATED
 			& ~E_WARNING & ~E_CORE_WARNING & ~E_USER_WARNING & ~E_STRICT);
+
+		ini_set('display_errors', 1);
+
 		$conf = [
 			'url' => 'https://getcomposer.org/composer.phar',
 			'dir' => __DIR__.'/'.$dir,
@@ -53,7 +56,7 @@ if ($base_ready && $ext_ready) {
 			mkdir($conf['bin'],0777,true);
 			copy($conf['url'],$conf['bin'].$conf['pkg']);
 			if (!file_exists($conf['bin'].$conf['pkg'])) {
-				trigger_error(sprintf('Failed to download composer. Please make sure that %s is existing and writeable.',$conf['bin']),E_USER_ERROR);
+				trigger_error(sprintf('Failed to download composer. Please make sure that %s is existing and writeable.',__DIR__.'/lib/'),E_USER_ERROR);
 				exit();
 			}
 		}
