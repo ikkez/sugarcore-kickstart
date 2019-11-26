@@ -9,13 +9,12 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "ikkez/sugarcore": "dev-master",
-        "bcosca/fatfree-core": "dev-master#36916119c76f635a6b84df29fda98afa0ee28700 as 3.6.5"
+        "ikkez/sugarcore": "^0.5",
+        "bcosca/fatfree-core": "^3.7.0"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "ssh://sugarcore:sugar@ikkez.de/home/sugarcore/base.git"
-        }
-    ]
+    "scripts": {
+        "post-install-cmd": [
+            "php sugar setup"
+        ]
+    }
 }

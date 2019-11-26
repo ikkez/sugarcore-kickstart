@@ -9,6 +9,11 @@
  *  compliance with the license. Any of the license terms and conditions
  *  can be waived if you get permission from the copyright holder.
  *
+ *  crafted by   __ __     __
+ *              |__|  |--.|  |--.-----.-----.
+ *              |  |    < |    <|  -__|-- __|
+ *              |__|__|__||__|__|_____|_____|
+ *
  *  Copyright (c) 2019
  *  https://github.com/ikkez/
  *
@@ -16,4 +21,5 @@
  *
  */
 
+const EXT_LIB = 'ext_lib/';
 require __DIR__.'/vendor/ikkez/sugarcore/cli.php';
