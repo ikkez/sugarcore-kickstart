@@ -1,6 +1,7 @@
 {
-    "name": "ikkez/sugarcore-init",
+    "name": "ikkez/sugarcore-kickstart",
     "type": "project",
+    "license": "GPL-3.0",
     "authors": [
         {
             "name": "ikkez",
